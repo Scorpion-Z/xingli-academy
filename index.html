@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#f8f9f7">
   <meta name="description" content="形理书院：系统学习中国传统风水文化的交互课程，配备交互罗盘、九宫飞星、文献支持的真实建筑案例和实践训练。">
-  <title>形理书院 V5.1.0 · 交互式教学版</title>
+  <title>形理书院 V5.2.0 · 交互式教学版</title>
   <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
   <meta property="og:type" content="website">
   <meta property="og:title" content="形理书院 · Xingli Academy">
@@ -128,7 +128,7 @@ h1,h2,h3{letter-spacing:-.03em}.eyebrow,.small-label{font-family:-apple-system,B
 .v5-status{overflow-wrap:anywhere}
 @media(prefers-reduced-motion:reduce){.v5-view,.v5-surface{animation:none!important;transition:none!important}}
 
-/* V5.1.0 导航整合：首页不重复列出单个实验室 */
+/* V5.2.0 导航整合：首页不重复列出单个实验室 */
 .v4-navlinks .v5-tools-nav{font-size:14px!important;font-weight:650!important;color:#315d49!important}
 .v4-navlinks .v5-tools-nav.active{color:#1c5a41!important}
 .v5-view:has(.v5-tools-heading){min-height:65vh}
@@ -162,6 +162,27 @@ h1,h2,h3{letter-spacing:-.03em}.eyebrow,.small-label{font-family:-apple-system,B
 [data-flying-panel="practice"] select{max-width:100%}
 .v51-learning-tabs button:focus-visible,.v51-practice-table input:focus-visible{outline:3px solid #416e56;outline-offset:3px}
 @media(max-width:600px){.v51-practice-table th,.v51-practice-table td{padding:8px 3px}.v51-learning-tabs button{flex:1;min-width:90px}}
+</style>
+<style>
+.v52-tabs{margin-bottom:24px;flex-wrap:wrap}.v52-tabs button{min-height:44px}
+.v52-metrics{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin:22px 0}
+.v52-metrics>div{background:#eaf1e9;border:1px solid #d5e1d6;border-radius:18px;padding:24px}
+.v52-metrics strong{display:block;font-size:30px;color:#245d48}.v52-metrics span{display:block;margin-top:10px;color:#556f61}
+.v52-stage-grid,.v52-two-cols{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:22px}
+.v52-stage-grid h2{margin:12px 0;font-size:24px}.v52-stage-grid p{line-height:1.8}.v52-stage-grid dl>div{display:flex;justify-content:space-between;border-bottom:1px solid #e0e8df;padding:8px 0}.v52-stage-grid dd{margin:0;font-weight:700}
+.v52-outcomes label{display:block;margin:18px 0 7px;font-weight:650}.v52-outcomes label.v51-review{display:flex;font-weight:400}
+.v52-outcomes input:not([type=checkbox]),.v52-outcomes select,.v52-outcomes textarea{display:block;width:100%;max-width:100%;min-height:44px;padding:11px 12px;border:1px solid #b8cbbd;border-radius:9px;background:#fff;color:#294d3b;font:inherit}
+.v52-outcomes textarea{resize:vertical;line-height:1.7}.v52-outcomes :is(input,select,textarea,button):focus-visible{outline:3px solid #63937a;outline-offset:3px}
+.v52-form-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0 16px}
+.v52-two-cols h2{font-size:26px;line-height:1.5}.v52-two-cols p{line-height:1.85}
+.v52-report-top{margin-bottom:22px}.v52-report-top select{max-width:660px}.v52-report-top summary{cursor:pointer;padding:16px 0;color:#245d48;font-weight:650}
+.v52-report-layout{display:grid;grid-template-columns:minmax(0,1.6fr) minmax(0,1fr);gap:22px;align-items:start}
+.v52-rubric-item{border-bottom:1px solid #e0e8df;padding-bottom:15px}.v52-rubric-item p{font-size:14px;color:#627567;line-height:1.7}
+.v52-backup,.v52-course-task{padding:22px;margin:24px 0;background:#edf3eb;border-radius:14px;line-height:1.8}.v52-backup button{margin:5px 8px 0 0}
+.v52-outcomes .v5-actions{flex-wrap:wrap}.v52-outcomes .v5-surface{min-width:0}
+#v52-report-result,#v52-measure-result{padding:12px 0;line-height:1.8}
+@media(max-width:850px){.v52-metrics{grid-template-columns:repeat(2,1fr)}.v52-stage-grid,.v52-two-cols,.v52-report-layout{grid-template-columns:1fr}.v52-metrics strong{font-size:25px}}
+@media(max-width:480px){.v52-tabs button{flex:1;min-width:95px}.v52-metrics>div{padding:17px}.v52-form-grid{grid-template-columns:1fr}.v52-outcomes .v5-actions>*{max-width:100%}}
 </style>
 </head>
 <body>
@@ -320,7 +341,7 @@ function containedImageBox(frameW,frameH,imageW,imageH){
 function regionPixels(s,w,h){return {left:w*s.x/100,top:h*s.y/100,width:w*s.w/100,height:h*s.h/100,cx:w*s.centerX/100,cy:h*s.centerY/100};}
 
 // Learning archives contain text records only; plan images have their own project export.
-const studyKeys={progress:'xingli_school_v1',mastery:'xingli_v2_checkpoint',visualNotes:'xingli-v32-visual-notes',labs:'xingli-v5-lab-records',practice:'xingli-v51-flying-practice'};
+const studyKeys={progress:'xingli_school_v1',mastery:'xingli_v2_checkpoint',visualNotes:'xingli-v32-visual-notes',labs:'xingli-v5-lab-records',practice:'xingli-v51-flying-practice',portfolio:'xingli-v52-portfolio'};
 function objectRecord(value,label){if(!value||typeof value!=='object'||Array.isArray(value))throw Error(label+'须为对象');return value;}
 function indexList(value,max,label){if(!Array.isArray(value)||value.some(n=>!Number.isInteger(n)||n<0||n>=max))throw Error(label+'格式无效');return [...new Set(value)];}
 function lessonNotes(value){objectRecord(value,'笔记');const result={};for(const [key,text] of Object.entries(value)){
@@ -340,8 +361,58 @@ function evaluatePractice(value){
  for(const [key,want,label] of [['hillDirection',String(expected.sDir.sign),'山盘顺逆'],['faceDirection',String(expected.fDir.sign),'向盘顺逆'],['boundary','stop','186°支持边界']]){if(data[key]===want)correct++;else errors.push(label);}
  return {correct,total:30,errors,passed:correct===30&&data.reason.trim().length>=20&&data.reviewed};
 }
+const studyMaxBytes=8*1024*1024;
+const reportFields=[
+ ['title','报告标题',160],['sources','资料来源与版本',3000],['facts','可核实事实',3000],['inputs','对象、测量与假设输入',3000],['method','规则与推演过程',3000],['analysis','分析与解释',3000],['limits','不确定性与限制',3000],['next','待补资料与下一步',3000]
+];
+const reportRubric=[
+ ['evidence','证据可追溯','资料标注作者、版本或链接；能指出它支持哪项事实。'],
+ ['inputs','输入有交代','研究对象、北向基准、时间和测量条件明确；未知值有标记。'],
+ ['method','过程可复算','写明采用规则及中间步骤，另一位学习者能够照着重做。'],
+ ['analysis','解释有分层','把观察事实、教学假设和传统解释分开，避免跳过依据。'],
+ ['limits','边界有保留','说明误差、缺失资料和工具未覆盖部分，必要时停止推演。'],
+ ['next','后续可执行','明确还需补充什么资料、怎样复核，而非只写笼统结论。']
+];
+function boundedText(value,max,label){if(value===undefined)return '';if(typeof value!=='string'||value.length>max)throw Error(label+'须为不超过'+max+'字的文字');return value;}
+function cleanMeasurement(value={}){
+ objectRecord(value,'测向练习');const result={};
+ for(const key of ['mean','low','high']){const n=value[key];if(n===undefined||n==='')result[key]='';else {if(typeof n!=='number'||!Number.isFinite(n)||n<0||n>=360)throw Error('测向答案须为0至小于360的数字');result[key]=n;}}
+ for(const key of ['facing','sitting']){const n=value[key]??'';if(n!==''&&!mountains.includes(n))throw Error('山位答案无效');result[key]=n;}
+ result.decision=value.decision??'';if(!['','review','calculate','switch'].includes(result.decision))throw Error('测向判断无效');
+ result.reason=boundedText(value.reason,3000,'测向说明');result.reviewed=value.reviewed===true;return result;
+}
+function evaluateMeasurement(value){
+ const data=cleanMeasurement(value),checks=[['mean',183.8,'平均朝向'],['low',182.8,'误差区间下限'],['high',184.8,'误差区间上限'],['facing','午','朝向山位'],['sitting','子','相对坐山'],['decision','review','下卦支持边界']];
+ const errors=checks.filter(([key,want])=>typeof want==='number'?typeof data[key]!=='number'||Math.abs(data[key]-want)>0.051:data[key]!==want).map(x=>x[2]);
+ return {correct:6-errors.length,total:6,errors,passed:!errors.length&&data.reason.trim().length>=20&&data.reviewed};
+}
+function cleanReport(value={}){
+ objectRecord(value,'案例报告');const result={};for(const [key,label,max] of reportFields)result[key]=boundedText(value[key],max,label);
+ result.review={};const ratings=value.review??{};objectRecord(ratings,'报告自评');
+ for(const [key] of reportRubric){const score=ratings[key]??0;if(!Number.isInteger(score)||score<0||score>2)throw Error('报告自评须为0、1或2');result.review[key]=score;}
+ return result;
+}
+function evaluateReport(value){
+ const data=cleanReport(value),missing=reportFields.filter(([key])=>!data[key].trim()).map(([,label])=>label),score=Object.values(data.review).reduce((sum,n)=>sum+n,0);
+ return {filled:reportFields.length-missing.length,total:reportFields.length,missing,selfScore:score,selfTotal:12,ready:missing.length===0&&score===12};
+}
+function cleanPortfolio(value={},caseIds=[]){
+ objectRecord(value,'学习成果');const reports=objectRecord(value.reports??{},'案例报告集'),next={measurement:cleanMeasurement(value.measurement??{}),reports:{}};
+ const allowed=new Set(['custom',...caseIds]);for(const [key,report] of Object.entries(reports)){if(!allowed.has(key))throw Error('报告关联了不支持的案例：'+key);next.reports[key]=cleanReport(report);}
+ next.activeCase=value.activeCase??'custom';if(!allowed.has(next.activeCase))throw Error('当前报告案例无效');return next;
+}
+function stageProgress(progress={},mastery={}){
+ const done=new Set(Array.isArray(progress.done)?progress.done.filter(n=>Number.isInteger(n)&&n>=0&&n<36):[]);
+ return Array.from({length:6},(_,stage)=>{let completed=0,checked=0;for(let i=stage*6;i<stage*6+6;i++){if(done.has(i))completed++;const answers=mastery['l'+i];if(Array.isArray(answers)&&[0,1,2].every(n=>answers.includes(n)))checked++;}return {completed,checked,total:6};});
+}
+function reportDocument(report,context){
+ const data=cleanReport(report),evaluation=evaluateReport(data),escape=escapeHtml;
+ const sections=reportFields.filter(([key])=>key!=='title').map(([key,label])=>`<section><h2>${label}</h2><p>${escape(data[key]||'尚未填写')}</p></section>`).join('');
+ return `<!doctype html><html lang="zh-CN"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>${escape(data.title||'案例研习报告')}</title><style>body{max-width:900px;margin:40px auto;padding:0 24px;font:17px/1.8 system-ui,sans-serif;color:#203e32}h1{line-height:1.4}h2{font-size:21px;border-bottom:1px solid #cbd8cf;padding-bottom:8px}p{white-space:pre-wrap;overflow-wrap:anywhere}.meta{color:#526f60;background:#f1f5f0;padding:18px}button{padding:10px 20px}section{break-inside:avoid}@media print{button{display:none}body{margin:0;font-size:12pt}section{break-inside:auto}}</style><body><button onclick="window.print()">打印 / 存为 PDF</button><h1>${escape(data.title||'案例研习报告')}</h1><p class="meta">形理书院 · 个人研习成果\n案例：${escape(context.caseTitle)}\n对象性质：${escape(context.caseType)}\n导出时间：${escape(context.exportedAt)}\n结构填写：${evaluation.filled}/${evaluation.total}；学习者自评：${evaluation.selfScore}/${evaluation.selfTotal}\n本报告未经过教师或专业审核。</p>${sections}<section><h2>自评记录</h2>${reportRubric.map(([key,label,description])=>`<p><b>${label}：${data.review[key]}/2</b> — ${escape(description)}</p>`).join('')}</section><p class="meta">个人实训记录（模拟算例，与本报告对象无对应关系）：\n${escape(context.training)}\n本文件是阅读稿；恢复编辑请使用网站导出的学习档案 JSON。户型图片需另存完整项目 JSON。</p></body></html>`;
+}
+
 function cleanStudyArchive(obj,caseIds=[]){
- objectRecord(obj,'档案');if(!['3.0','5.1'].includes(obj.version))throw Error('暂不支持此档案版本，请使用学习档案备份文件');
+ objectRecord(obj,'档案');if(!['3.0','5.1','5.2'].includes(obj.version))throw Error('暂不支持此档案版本，请使用学习档案备份文件');
  const p=objectRecord(obj.progress,'课程记录'),mastery=objectRecord(obj.mastery,'检验记录');
  const lastLesson=p.lastLesson??0,quizBest=p.quizBest??0;
  if(!Number.isInteger(lastLesson)||lastLesson<0||lastLesson>35||!Number.isInteger(quizBest)||quizBest<0||quizBest>12)throw Error('课程位置或测验成绩无效');
@@ -353,6 +424,7 @@ function cleanStudyArchive(obj,caseIds=[]){
   if(typeof value!=='string'||value.length>40||!Number.isFinite(Date.parse(value)))throw Error('实训时间格式无效');next.labs[key]=value;
  }}
  if(obj.practice!==undefined)next.practice=cleanPractice(obj.practice);
+ if(obj.portfolio!==undefined)next.portfolio=cleanPortfolio(obj.portfolio,caseIds);
  return next;
 }
 function writeStudyArchive(storage,data){
@@ -364,7 +436,7 @@ function writeStudyArchive(storage,data){
  }
 }
 
-return {annual,studyKeys,cleanStudyArchive,writeStudyArchive,cleanPractice,evaluatePractice,bearingValue,safeNumber,clamp,escapeHtml,mountains,sectors,trigrams,yuanNames,normalize,at,mountainSvg,flight,palaces,sectorIds,starGroups,yang,wrap9,fly,flySteps,starDirection,house,explanations,PROJECT_VERSION,projectDefaults,cleanProject,containedImageBox,regionPixels};
+return {studyMaxBytes,reportFields,reportRubric,cleanMeasurement,evaluateMeasurement,cleanReport,evaluateReport,cleanPortfolio,stageProgress,reportDocument,annual,studyKeys,cleanStudyArchive,writeStudyArchive,cleanPractice,evaluatePractice,bearingValue,safeNumber,clamp,escapeHtml,mountains,sectors,trigrams,yuanNames,normalize,at,mountainSvg,flight,palaces,sectorIds,starGroups,yang,wrap9,fly,flySteps,starDirection,house,explanations,PROJECT_VERSION,projectDefaults,cleanProject,containedImageBox,regionPixels};
 })();
 </script>
 <script>
@@ -504,7 +576,7 @@ function searchData(q){let entries=[...lessons.map((x,i)=>({type:'课程',title:
 function showSearchResults(q){let rows=searchData(q);$('search-results').innerHTML=rows.length?rows.map(r=>`<button class="search-result" data-search-type="${r.target}" data-search-id="${htmlEscape(r.id)}"><span style="color:#65937a">${r.type==='课程'?'▤':r.type==='案例'?'▧':'▣'}</span><span><strong>${htmlEscape(r.title)}</strong><small>${htmlEscape(r.summary.slice(0,62))}${r.summary.length>62?'…':''}</small></span><span class="result-type">${r.type}</span></button>`).join(''):`<div style="padding:24px;color:#9ea79d;text-align:center">没有找到相关条目，试试“罗盘”“宏村”“九星”。</div>`}
 function searchGo(type,id){closeSearch();if(type==='course'){state.lesson=Number(id);saved.lastLesson=state.lesson;persist();navigate('courses')}else if(type==='case'){state.caseId=id;navigate('cases')}else navigate('resources')}
 function handleClick(e){const nav=e.target.closest('[data-view]');if(nav){navigate(nav.dataset.view);return}const go=e.target.closest('[data-go]');if(go){let name=go.dataset.go;if(go.dataset.lesson!==undefined){state.lesson=Number(go.dataset.lesson);saved.lastLesson=state.lesson;persist()}if(name==='cases')state.caseId=null;navigate(name);return}const st=e.target.closest('[data-stage]');if(st){state.lesson=Number(st.dataset.stage)*6;saved.lastLesson=state.lesson;persist();navigate('courses');return}const sel=e.target.closest('[data-lesson-select]');if(sel){state.lesson=Number(sel.dataset.lessonSelect);saved.lastLesson=state.lesson;persist();renderCourses();return}const toggle=e.target.closest('[data-toggle-module]');if(toggle){let next=Number(toggle.dataset.toggleModule);state.module=state.module===next?-1:next;const blocks=$('view-courses').querySelectorAll('.module-lessons');blocks.forEach((x,i)=>x.classList.toggle('hidden',i!==state.module));$('view-courses').querySelectorAll('.module-toggle').forEach((x,i)=>x.lastElementChild.textContent=(state.module===i?'收起':'展开')+' ⌄');return}if(e.target.closest('#show-answer')){$('lesson-answer').classList.toggle('open');$('show-answer').textContent=$('lesson-answer').classList.contains('open')?'收起参考答案 ⌃':'查看参考答案 ⌄';return}if(e.target.closest('#mark-done')){if(lessonStatus(state.lesson)){saved.done=saved.done.filter(x=>x!==state.lesson);toast('已取消完成标记')}else{saved.done.push(state.lesson);toast('已记录课程完成')}persist();updateProgress();renderCourses();return}if(e.target.closest('[data-next-lesson]')){state.lesson=Math.min(state.lesson+1,35);saved.lastLesson=state.lesson;persist();renderCourses();window.scrollTo({top:0,behavior:'smooth'});return}if(e.target.closest('[data-prev-lesson]')){state.lesson=Math.max(state.lesson-1,0);saved.lastLesson=state.lesson;persist();renderCourses();window.scrollTo({top:0,behavior:'smooth'});return}
-const sector=e.target.closest('[data-angle]');if(sector){setAngle(sector.dataset.angle);return}const setangle=e.target.closest('[data-set-angle]');if(setangle){setAngle(setangle.dataset.setAngle);return}const cf=e.target.closest('[data-case-filter]');if(cf){state.caseFilter=cf.dataset.caseFilter;state.caseId=null;renderCases();return}const c=e.target.closest('[data-case]');if(c){state.caseId=c.dataset.case;renderCases();window.scrollTo({top:0,behavior:'smooth'});return}if(e.target.closest('[data-back-cases]')){state.caseId=null;renderCases();return}const pc=e.target.closest('[data-palace]');if(pc){state.palace=pc.dataset.palace;renderStars();return}if(e.target.closest('#export-field')){downloadField();return}const ans=e.target.closest('[data-answer-choice]');if(ans&&!state.quizSubmitted){state.quizSelected=Number(ans.dataset.answerChoice);renderQuiz();return}if(e.target.closest('#quiz-next')){if(state.quizSelected===null)return;if(!state.quizSubmitted){state.quizSubmitted=true;state.quizAnswers.push(state.quizSelected);if(state.quizSelected===quizBank[state.quizIndex].a)state.quizCorrect++;renderQuiz()}else if(state.quizIndex===quizBank.length-1){state.quizFinished=true;renderQuiz()}else{state.quizIndex++;state.quizSelected=null;state.quizSubmitted=false;renderQuiz()}return}if(e.target.closest('#restart-quiz')){state.quizIndex=0;state.quizSelected=null;state.quizSubmitted=false;state.quizCorrect=0;state.quizAnswers=[];state.quizFinished=false;renderQuiz();return}const sr=e.target.closest('[data-search-type]');if(sr){searchGo(sr.dataset.searchType,sr.dataset.searchId);return}}
+const sector=e.target.closest('[data-angle]');if(sector){setAngle(sector.dataset.angle);return}const setangle=e.target.closest('[data-set-angle]');if(setangle){setAngle(setangle.dataset.setAngle);return}const cf=e.target.closest('[data-case-filter]');if(cf){state.caseFilter=cf.dataset.caseFilter;state.caseId=null;renderCases();return}const c=e.target.closest('[data-case]');if(c){state.caseId=c.dataset.case;navigate('cases');return}if(e.target.closest('[data-back-cases]')){state.caseId=null;renderCases();return}const pc=e.target.closest('[data-palace]');if(pc){state.palace=pc.dataset.palace;renderStars();return}if(e.target.closest('#export-field')){downloadField();return}const ans=e.target.closest('[data-answer-choice]');if(ans&&!state.quizSubmitted){state.quizSelected=Number(ans.dataset.answerChoice);renderQuiz();return}if(e.target.closest('#quiz-next')){if(state.quizSelected===null)return;if(!state.quizSubmitted){state.quizSubmitted=true;state.quizAnswers.push(state.quizSelected);if(state.quizSelected===quizBank[state.quizIndex].a)state.quizCorrect++;renderQuiz()}else if(state.quizIndex===quizBank.length-1){state.quizFinished=true;renderQuiz()}else{state.quizIndex++;state.quizSelected=null;state.quizSubmitted=false;renderQuiz()}return}if(e.target.closest('#restart-quiz')){state.quizIndex=0;state.quizSelected=null;state.quizSubmitted=false;state.quizCorrect=0;state.quizAnswers=[];state.quizFinished=false;renderQuiz();return}const sr=e.target.closest('[data-search-type]');if(sr){searchGo(sr.dataset.searchType,sr.dataset.searchId);return}}
 function handleInput(e){if(e.target.id==='compass-range'||e.target.id==='compass-number'){setAngle(e.target.value);return}if(e.target.id==='lesson-note'){saved.notes[state.lesson]=e.target.value;persist();return}if(e.target.id==='site-search'){showSearchResults(e.target.value);return}if(e.target.id==='field-angle'){const el=$('field-mountain'),v=Number(e.target.value);if(el)el.textContent=e.target.value!==''&&Number.isFinite(v)&&v>=0&&v<360?`当前为 ${mountainInfo(v).m}山`:'请输入有效角度';return}if(e.target.id==='star-year'){state.year=Number(e.target.value);renderStars();return}}
 function init(){document.addEventListener('click',handleClick);document.addEventListener('input',handleInput);document.addEventListener('change',handleInput);$('search-trigger').addEventListener('click',openSearch);$('close-search').addEventListener('click',closeSearch);$('search-modal').addEventListener('click',e=>{if(e.target.id==='search-modal')closeSearch()});$('mobile-menu').addEventListener('click',()=>$('sidebar').classList.toggle('open'));document.addEventListener('keydown',e=>{if((e.ctrlKey||e.metaKey)&&e.key.toLowerCase()==='k'){e.preventDefault();openSearch()}if(e.key==='Escape'){closeSearch();$('sidebar').classList.remove('open')}if(e.key==='Enter'&&e.target.matches('[data-stage],[data-case],.brand')){e.target.click()}if(e.key==='Enter'&&e.target.id==='site-search'){const row=$('search-results').querySelector('[data-search-type]');if(row)row.click()}});updateProgress();navigate('home',{noScroll:true})}
 /* 形理书院 V2 · 课程精讲、高清图解、案例实训与学习考核 */
@@ -611,16 +683,16 @@ function extraEvents(e){let opt=e.target.closest('[data-check-answer]');if(opt){
  let zc=e.target.closest('[data-zoom-case]');if(zc){let c=cases.find(x=>x.id===zc.dataset.zoomCase);openImageModal(c.id==='flat'?floorplanSvg(186,false):caseIllustration(c.kind),c.title);return}
  if(e.target.closest('[data-close-media]')||e.target.id==='edu-media-modal'){closeImageModal();return}
  if(e.target.closest('[data-export-study]')){try{
-  const out={version:'5.1',exportTime:new Date().toISOString(),progress:saved,mastery:gradeData,visualNotes:v32VisualNotes,labs:JSON.parse(localStorage.getItem(XingliCore.studyKeys.labs)||'{}'),practice:JSON.parse(localStorage.getItem(XingliCore.studyKeys.practice)||'{"answers":{}}')};
+  const out={version:'5.2',exportTime:new Date().toISOString(),progress:saved,mastery:gradeData,visualNotes:v32VisualNotes,labs:JSON.parse(localStorage.getItem(XingliCore.studyKeys.labs)||'{}'),practice:JSON.parse(localStorage.getItem(XingliCore.studyKeys.practice)||'{"answers":{}}'),portfolio:window.XingliOutcomes?window.XingliOutcomes.snapshot():JSON.parse(localStorage.getItem(XingliCore.studyKeys.portfolio)||'{}')};
   XingliCore.cleanStudyArchive(out,cases.map(c=>c.id));
-  const b=new Blob([JSON.stringify(out,null,2)],{type:'application/json'}),u=URL.createObjectURL(b),a=document.createElement('a');a.href=u;a.download='形理书院_学习档案备份.json';a.click();setTimeout(()=>URL.revokeObjectURL(u),1500);toast('已导出学习记录；户型图片请另存完整项目');
+  const b=new Blob([JSON.stringify(out,null,2)],{type:'application/json'}),a=document.createElement('a');if(b.size>XingliCore.studyMaxBytes)throw Error('学习档案超过8MB，请先缩减过长的笔记或报告');const u=URL.createObjectURL(b);a.href=u;a.download='形理书院_学习档案备份.json';a.click();setTimeout(()=>URL.revokeObjectURL(u),1500);toast('已导出学习记录；户型图片请另存完整项目');
  }catch(error){toast('导出失败：'+error.message)}return}
 
 }
 function completeFlatStep(){let pos=upgradeState.flatStep,d=gradeData.flatDone||[];if(!d.includes(pos))d.push(pos);gradeData.flatDone=d;persistGrade();renderCaseDetail(cases.find(c=>c.id==='flat'));toast('本步骤已通过');}
 function extraInputs(e){if(e.target.id==='flat-live-angle'){let v=Number(e.target.value);if(e.target.value!==''&&v>=0&&v<360){upgradeState.flatAngle=rounded(v);let el=document.querySelector('.flat-illustration');if(el)el.innerHTML=floorplanSvg(v,upgradeState.flatGrid)}}}
 const originalRenderResources=renderResources;
-renderResources=function(){originalRenderResources();let v=$('view-resources');let el=document.createElement('div');el.className='archive-backup card';el.innerHTML=`<div><div class="eyebrow">STUDY ARCHIVE</div><h3>学习档案备份</h3><p>包含36课进度与检验、案例训练、两类笔记、工具实训和飞星独立练习。户型图片与校准参数请到平面图工具另存“完整项目 JSON”。导入会替换文件包含的记录；旧版未包含的笔记和实训保留。</p></div><div class="archive-buttons"><button class="btn btn-outline" data-v5-target="v5-plan">户型项目备份 →</button><button class="btn btn-primary" data-export-study>导出学习档案 ↓</button><label class="btn btn-outline restore-file-label" for="restore-study">导入并恢复 ↑</label><input id="restore-study" type="file" accept="application/json,.json" hidden></div>`;v.prepend(el)};
+renderResources=function(){originalRenderResources();let v=$('view-resources');let el=document.createElement('div');el.className='archive-backup card';el.innerHTML=`<div><div class="eyebrow">STUDY ARCHIVE</div><h3>学习档案备份</h3><p>包含36课进度与检验、案例训练、两类笔记、工具实训、飞星练习、测向实训及综合案例报告。户型图片与校准参数请到平面图工具另存“完整项目 JSON”。导入会替换文件包含的记录；旧版未包含的笔记、实训和案例报告保留。</p></div><div class="archive-buttons"><button class="btn btn-outline" data-v5-target="v5-plan">户型项目备份 →</button><button class="btn btn-primary" data-export-study>导出学习档案 ↓</button><label class="btn btn-outline restore-file-label" for="restore-study">导入并恢复 ↑</label><input id="restore-study" type="file" accept="application/json,.json" hidden></div>`;v.prepend(el)};
 const originalRenderHome=renderHome;
 renderHome=function(){originalRenderHome();let hero=document.querySelector('#view-home .hero-content');if(hero){let e=document.createElement('div');e.className='version-ribbon';e.textContent='V2.0 · 高清图解 / 分步教学 / 实操检验';hero.prepend(e)}let col=document.querySelector('#view-home .home-columns');if(col){let e=document.createElement('div');e.className='new-learning-strip card';e.innerHTML=`<div><div class="eyebrow">NEW IN 2.0</div><h3>从看懂，到自己能做</h3><p>前6节已升级为精讲课，每节配合无损矢量图解与3道即时检验。住宅模拟案例加入完整5步实训。</p></div><div><button class="btn btn-primary" data-go="courses" data-lesson="0">开始精讲课程 →</button><button class="btn btn-outline" data-case="flat">打开住宅实训 →</button></div>`;col.parentNode.insertBefore(e,col)}};
 document.addEventListener('click',extraEvents);
@@ -628,13 +700,13 @@ document.addEventListener('input',extraInputs);
 document.addEventListener('change',async e=>{
  if(e.target.id!=='restore-study')return;const file=e.target.files?.[0];if(!file)return;
  try{
-  if(file.size>2000000)throw Error('档案超过2MB，请检查文件');
+  if(file.size>XingliCore.studyMaxBytes)throw Error('档案超过8MB，请检查文件');
   const next=XingliCore.cleanStudyArchive(JSON.parse(await file.text()),cases.map(c=>c.id));
   XingliCore.writeStudyArchive(localStorage,next);
   saved=next.progress;for(const key of Object.keys(gradeData))delete gradeData[key];Object.assign(gradeData,next.mastery);
   if(next.visualNotes!==undefined)v32VisualNotes=next.visualNotes;
   state.lesson=saved.lastLesson;updateProgress();renderCourses();renderResources();
-  window.dispatchEvent(new CustomEvent('xingli-study-restored'));
+  window.dispatchEvent(new CustomEvent('xingli-study-restored',{detail:{portfolioRestored:next.portfolio!==undefined}}));
   toast('36课检验与案例记录已恢复；户型项目需单独导入');
  }catch(error){toast('导入失败：'+error.message)}finally{e.target.value='';}
 });
@@ -1086,7 +1158,7 @@ function v4CardPhoto(id){const c=cases.find(x=>x.id===id);if(!c)return '';return
 function v4Home(){const finished=saved.done.length, active=Math.min(35,Math.max(0,state.lesson));let next=lessons[active];const percent=Math.round(finished/36*100);
  const cards=stages.map((st,i)=>{const n=saved.done.filter(x=>x>=6*i&&x<6*(i+1)).length;return `<button class="v4-stage" type="button" data-v4-lesson="${i*6}"><span class="num">CHAPTER ${String(i+1).padStart(2,'0')} / 06</span><span class="arrow">↗</span><strong>${st.name}</strong><small>${st.sub} · ${n}/6节已完成</small><span class="progress-line"><i style="width:${Math.round(n/6*100)}%"></i></span></button>`}).join('');
  document.getElementById('view-home').innerHTML=`<div class="v4-home"><section class="v4-hero"><div class="v4-hero-copy"><span class="v4-kicker">TRADITION & SPACE · 中国传统堪舆研修</span><h1>观山川有形<br><span>见方位之理</span></h1><p>从二十四山到玄空飞星，在真实建筑、历史图版与可操作的推演中，建立完整而审慎的传统文化知识体系。</p><div class="v4-hero-actions"><button class="v4-cta" data-v4-lesson="${active}">${finished?'继续第 '+String(active+1).padStart(2,'0')+' 课':'开始第一课'} <span aria-hidden="true">↗</span></button><button class="v4-textbtn" data-v4-nav="cases">先看实景案例　→</button></div><div class="v4-caption">36节精讲课程　·　30个研习案例　·　交互排盘与学习测验</div></div><div class="v4-hero-graphic">${v4HeroDisc()}<span class="v4-hero-hint">TWENTY-FOUR MOUNTAINS · 360°</span></div></section>
- <section class="v4-resume"><div class="v4-resume-icon" aria-hidden="true">◈</div><div class="v4-resume-info"><small>YOUR LEARNING JOURNEY · 继续研修</small><strong>第${String(active+1).padStart(2,'0')}课　${htmlEscape(next[0])}</strong></div><div class="v4-resume-progress"><div class="track"><div class="track-fill" style="width:${percent}%"></div></div><small>已完成 ${finished} / 36 节</small></div><button class="btn btn-outline btn-small" data-v4-lesson="${active}">继续学习 ↗</button></section>
+ <section class="v4-resume"><div class="v4-resume-icon" aria-hidden="true">◈</div><div class="v4-resume-info"><small>YOUR LEARNING JOURNEY · 继续研修</small><strong>第${String(active+1).padStart(2,'0')}课　${htmlEscape(next[0])}</strong></div><div class="v4-resume-progress"><div class="track"><div class="track-fill" style="width:${percent}%"></div></div><small>已完成 ${finished} / 36 节</small></div><button class="btn btn-outline btn-small" data-outcomes="overview">我的学习成果 ↗</button><button class="btn btn-outline btn-small" data-v4-lesson="${active}">继续学习 ↗</button></section>
  <div class="section-heading"><div><div class="v4-kicker">YOUR LEARNING EXPERIENCE</div><h2>从理解，到掌握</h2></div><small>清晰的理论 · 可操作的练习 · 可追溯的资料</small></div>
  <div class="v4-featuregrid"><button class="v4-feature dark" type="button" data-v4-nav="courses"><div class="v4-feature-icon" aria-hidden="true">◈</div><h3>系统课程</h3><p>六个阶段，36节精讲，图像资料、示范推演与逐课检验结合。</p><b>36 LESSONS</b></button><button class="v4-feature" type="button" data-v4-nav="cases"><div class="v4-feature-icon" aria-hidden="true">▧</div><h3>案例研习</h3><p>结合传统聚落、真实建筑与模拟练习，观察空间与方位。</p><b>30 CASES</b></button><button class="v4-feature sand" type="button" data-v5-target="v5-tools"><div class="v4-feature-icon" aria-hidden="true">◎</div><h3>工具箱</h3><p>二十四山罗盘、玄空飞星与平面图分析，统一入口、分步学习。</p><b>3 INTERACTIVE TOOLS</b></button></div>
  <div class="section-heading"><div><div class="v4-kicker">STRUCTURED PATH</div><h2>六阶学习路径</h2></div><button class="v4-textbtn" data-v4-lesson="0">从基础开始　↗</button></div><div class="v4-stage-grid">${cards}</div>
@@ -1097,10 +1169,10 @@ function v4Home(){const finished=saved.done.length, active=Math.min(35,Math.max(
 function v4SyncNav(view){document.querySelectorAll('[data-v4-nav]').forEach(el=>{el.classList.toggle('active',el.dataset.v4Nav===view);if(el.classList.contains('v4-navlink'))el.setAttribute('aria-current',el.dataset.v4Nav===view?'page':'false')});const p=document.getElementById('v4-progress');if(p)p.textContent=`${saved.done.length} / 36`;}
 function v4OpenLesson(i){if(!Number.isFinite(Number(i)))return;state.lesson=Math.max(0,Math.min(35,Number(i)));v4Options.index=false;document.body.classList.remove('v4-index-open');navigate('courses');}
 function v4DecorateCourse(){let root=document.getElementById('view-courses');if(!root)return;let i=state.lesson,st=stages[Math.floor(i/6)],course=root.querySelector('.course-layout');if(!course)return;root.querySelector('.page-intro')?.remove();
- const t=`<div class="v4-course-toolbar"><div class="v4-course-crumb"><span>系统课程</span><span>›</span><strong>${st.name}</strong><span>›</span><span>第 ${String(i+1).padStart(2,'0')} / 36 课</span></div><div class="v4-course-controls"><button type="button" class="v4-toolbtn" data-v4-index aria-expanded="${v4Options.index}">☷　课程目录</button><button type="button" class="v4-toolbtn ${v4Options.focus?'selected':''}" data-v4-focus aria-pressed="${v4Options.focus}">◫　${v4Options.focus?'退出专注':'专注阅读'}</button><button type="button" class="v4-toolbtn" data-v4-prev ${i===0?'disabled':''} aria-label="上一节课">←</button><button type="button" class="v4-toolbtn" data-v4-next ${i===35?'disabled':''} aria-label="下一节课">→</button></div></div><div class="v4-course-progressbar" aria-label="课程顺序进度"><span style="width:${((i+1)/36*100).toFixed(2)}%"></span></div>`;
+ const t=`<div class="v4-course-toolbar"><div class="v4-course-crumb"><span>系统课程</span><span>›</span><strong>${st.name}</strong><span>›</span><span>第 ${String(i+1).padStart(2,'0')} / 36 课</span></div><div class="v4-course-controls"><button type="button" class="v4-toolbtn" data-outcomes="overview">学习成果</button><button type="button" class="v4-toolbtn" data-v4-index aria-expanded="${v4Options.index}">☷　课程目录</button><button type="button" class="v4-toolbtn ${v4Options.focus?'selected':''}" data-v4-focus aria-pressed="${v4Options.focus}">◫　${v4Options.focus?'退出专注':'专注阅读'}</button><button type="button" class="v4-toolbtn" data-v4-prev ${i===0?'disabled':''} aria-label="上一节课">←</button><button type="button" class="v4-toolbtn" data-v4-next ${i===35?'disabled':''} aria-label="下一节课">→</button></div></div><div class="v4-course-progressbar" aria-label="课程顺序进度"><span style="width:${((i+1)/36*100).toFixed(2)}%"></span></div>`;
  root.insertAdjacentHTML('afterbegin',t);document.body.classList.toggle('v4-focused',v4Options.focus);
  let index=course.querySelector('.course-index');if(index){index.insertAdjacentHTML('afterbegin','<div class="v4-index-close"><span>全部36节课程</span><button data-v4-close-index aria-label="关闭目录">×</button></div>');}
- const reading=course.querySelector('.reading-panel');if(reading){const target=reading.querySelector('.reading-body');if(target){const links=[['本课目标','.lesson-callout'],['图像研习','#v32-visual'],['核心讲解','.chapter-section'],['动手练习','.worked-example'],['检验与笔记','.reading-note']];const available=links.filter(([_,sel])=>reading.querySelector(sel));const jumping=`<nav class="v4-lesson-jump" aria-label="本课学习导航">${available.map(([txt,sel],a)=>`<button data-v4-jump="${sel}" type="button">${String(a+1).padStart(2,'0')}　${txt}</button>`).join('')}</nav>`;target.insertAdjacentHTML('afterbegin',jumping);}}
+ const reading=course.querySelector('.reading-panel');if(reading){const target=reading.querySelector('.reading-body');if(target){const links=[['本课目标','.lesson-callout'],['图像研习','#v32-visual'],['核心讲解','.chapter-section'],['动手练习','.worked-example'],['检验与笔记','.reading-note']];const available=links.filter(([_,sel])=>reading.querySelector(sel));const jumping=`<nav class="v4-lesson-jump" aria-label="本课学习导航">${available.map(([txt,sel],a)=>`<button data-v4-jump="${sel}" type="button">${String(a+1).padStart(2,'0')}　${txt}</button>`).join('')}</nav>`;target.insertAdjacentHTML('afterbegin',jumping);if([4,5,17,35].includes(i))target.insertAdjacentHTML('afterbegin',`<div class="v52-course-task"><strong>${i===35?'结业综合作业':'测向误差实训'}</strong><p>${i===35?'提交带来源、推演步骤和局限说明的案例报告，并按量表自检。':'用一组新的测量读数，判断山位与下卦支持范围；保存可复核的测向记录。'}</p><button class="btn btn-outline" data-outcomes="${i===35?'report':'measurement'}">${i===35?'编写案例报告':'进入测向实训'} →</button></div>`);}}
  v4SyncNav('courses');
 }
 function v4DecorateCases(){let root=document.getElementById('view-cases');if(!root)return;if(!state.caseId){let headingEl=root.querySelector('.page-intro');let html=`<div class="v4-case-lead"><img src="${v4PhotoByCase('axis',1600)}" alt="北京故宫建筑群的航拍实景" onerror="this.style.display='none'"><div class="v4-case-lead-copy"><span>IMAGE-BASED FIELD STUDY</span><h2>在建筑现场，学习观察。</h2><p>四个有文献的真实遗产案例，二十六个可复核参数的模拟实训，所有判断均说明所依据的资料。</p></div></div>`;if(headingEl){headingEl.insertAdjacentHTML('afterend',html);headingEl.remove();}else root.insertAdjacentHTML('afterbegin',html);}
@@ -1285,7 +1357,7 @@ function initPlan(root){
  let drag=false;const move=e=>{if(!drag)return;const r=q('v5-plan-canvas').getBoundingClientRect();state.centerX=clamp((e.clientX-r.left)/r.width*100,0,100);state.centerY=clamp((e.clientY-r.top)/r.height*100,0,100);draw();};
  q('v5-plan-center').addEventListener('pointerdown',e=>{drag=true;e.target.setPointerCapture(e.pointerId);e.preventDefault()});q('v5-plan-center').addEventListener('pointermove',move);q('v5-plan-center').addEventListener('pointerup',()=>{drag=false;queueSave()});q('v5-plan-center').addEventListener('pointercancel',()=>{drag=false;queueSave()});
  async function exportImageReport(){const img=await loadImage(state.src),cw=1800,imgH=Math.round(cw*state.imageHeight/state.imageWidth),header=200,footer=270,fullH=header+imgH+footer;if(fullH>6500)throw Error('图片宽高比过于极端，暂不支持导出');
-  const cvs=document.createElement('canvas');cvs.width=cw;cvs.height=fullH;const c=cvs.getContext('2d');c.fillStyle='#f8f9f6';c.fillRect(0,0,cw,fullH);c.fillStyle='#1e4535';c.font='bold 68px sans-serif';c.fillText('形理书院 · 空间分析记录',80,100);c.font='32px sans-serif';c.fillStyle='#64776a';c.fillText('V5.1 · 传统方位与几何教学示意',80,152);
+  const cvs=document.createElement('canvas');cvs.width=cw;cvs.height=fullH;const c=cvs.getContext('2d');c.fillStyle='#f8f9f6';c.fillRect(0,0,cw,fullH);c.fillStyle='#1e4535';c.font='bold 68px sans-serif';c.fillText('形理书院 · 空间分析记录',80,100);c.font='32px sans-serif';c.fillStyle='#64776a';c.fillText('V5.2 · 传统方位与几何教学示意',80,152);
   c.drawImage(img,0,header,cw,imgH);const reg=regionPixels(state,cw,imgH);c.save();c.translate(0,header);c.strokeStyle='#21674a';c.lineWidth=4;c.setLineDash([20,12]);if(state.mode!=='plain')c.strokeRect(reg.left,reg.top,reg.width,reg.height);c.setLineDash([]);
   if(state.mode!=='plain'){c.translate(reg.cx,reg.cy);c.rotate(state.north*Math.PI/180);c.strokeStyle='#236e50';c.lineWidth=3;c.fillStyle='rgba(78,150,92,.12)';let left=-reg.width/2,top=-reg.height/2;for(let row=0;row<3;row++)for(let col=0;col<3;col++){let x=left+col*reg.width/3,y=top+row*reg.height/3;c.fillRect(x,y,reg.width/3,reg.height/3);c.strokeRect(x,y,reg.width/3,reg.height/3);c.save();c.translate(x+reg.width/6,y+reg.height/6);c.rotate(-state.north*Math.PI/180);c.textAlign='center';c.fillStyle='#164c35';c.font=`bold ${Math.max(20,Math.min(36,reg.width/11))}px sans-serif`;c.fillText(labels[row*3+col],0,10);c.restore();}c.beginPath();c.moveTo(0,-Math.min(130,imgH*.25));c.lineTo(0,0);c.strokeStyle='#c45a3b';c.lineWidth=8;c.stroke();c.fillStyle='#c45a3b';c.beginPath();c.moveTo(0,-Math.min(130,imgH*.25)-16);c.lineTo(-12,-Math.min(130,imgH*.25)+14);c.lineTo(12,-Math.min(130,imgH*.25)+14);c.fill();}
   c.restore();const y=header+imgH+54;c.fillStyle='#254b39';c.font='bold 36px sans-serif';const a=at(state.bearing);c.fillText(`朝向 ${state.bearing}° · ${a.name}向 / ${a.sitting}坐　 图片北向 ${state.north}°`,80,y);c.font='27px sans-serif';c.fillStyle='#607565';c.fillText('来源：'+state.name.slice(0,40)+' ｜ 中心 '+state.centerX.toFixed(1)+'% , '+state.centerY.toFixed(1)+'%',80,y+50);c.fillText('备注摘要：'+(state.notes||'未填写').replace(/\s+/g,' ').slice(0,68),80,y+100);c.font='24px sans-serif';c.fillText('仅供传统方位学习与几何示意，完整备注请查看 JSON 项目文件。',80,y+157);
@@ -1300,7 +1372,7 @@ function initPlan(root){
 
 const labs=[['v5-compass','二十四山罗盘'],['v5-flying','玄空飞星'],['v5-plan','平面图分析']];
 function initToolbox(root){
- root.innerHTML=`<div class="v5-heading v5-tools-heading"><span class="v5-kicker">INTERACTIVE TOOLS · V5.1.0</span><h1>工具箱</h1><p>三个实验室统一在这里。可以先看相关课程，再进入工具动手操作；也可以直接打开，自由练习。</p></div>
+ root.innerHTML=`<div class="v5-heading v5-tools-heading"><span class="v5-kicker">INTERACTIVE TOOLS · V5.2.0</span><h1>工具箱</h1><p>三个实验室统一在这里。可以先看相关课程，再进入工具动手操作；也可以直接打开，自由练习。</p></div>
  <div class="v5-tools-grid"><button class="v5-tool-card" type="button" data-v5-target="v5-compass"><span class="v5-tool-icon" aria-hidden="true">◎</span><span class="v5-tool-text"><strong>二十四山罗盘</strong><small>罗盘与方位 · 24山分区 · 坐向判断</small><em>进入罗盘 →</em></span></button>
  <button class="v5-tool-card" type="button" data-v5-target="v5-flying"><span class="v5-tool-icon" aria-hidden="true">▦</span><span class="v5-tool-text"><strong>玄空飞星</strong><small>运盘 · 山盘 · 向盘 · 八步分解</small><em>开始推演 →</em></span></button>
  <button class="v5-tool-card" type="button" data-v5-target="v5-plan"><span class="v5-tool-icon" aria-hidden="true">▤</span><span class="v5-tool-text"><strong>平面图分析</strong><small>导入户型 · 校准北向 · 叠加九宫 · 导出报告</small><em>进入分析 →</em></span></button></div>
@@ -1354,8 +1426,85 @@ function enhanceCourse(){const target=document.querySelector('#view-courses .rea
 const course=document.querySelector('#view-courses');if(course){new MutationObserver(enhanceCourse).observe(course,{childList:true,subtree:true});enhanceCourse();}
 window.addEventListener('xingli-lab-passed',e=>{const r=getRecords();r[e.detail.lab]=new Date().toISOString();if(lessonOrigin&&(e.detail.lab!=='v5-flying'||e.detail.task===(lessonOrigin===23?'annual':lessonOrigin===24?'practice':'house')))r[`lesson-${lessonOrigin}`]=new Date().toISOString();setRecords(r);});
 if(location.hash.startsWith('#lab/')){const id='v5-'+location.hash.split('/')[1];if(appFns[id])openV5(id);}
-window.XingliV5={openV5,version:'5.1.0'};
+window.XingliV5={openV5,version:'5.2.0'};
 
+})();
+</script>
+<script>
+(function(){
+ const C=XingliCore,escape=C.escapeHtml,caseIds=cases.map(c=>c.id),key=C.studyKeys.portfolio;
+ const root=document.createElement('section');root.className='view v5-view v52-outcomes';root.id='view-outcomes';document.querySelector('#main').append(root);
+ let portfolio=null,loadError='',unsaved=false,panel='overview';
+ const q=id=>root.querySelector('#'+id);
+ function load(force=false){if(unsaved&&!force)return;try{portfolio=C.cleanPortfolio(JSON.parse(localStorage.getItem(key)||'{}'),caseIds);loadError='';unsaved=false;}catch(error){portfolio=null;loadError=error.message;}}
+ function persist(next){portfolio=C.cleanPortfolio(next,caseIds);unsaved=true;localStorage.setItem(key,JSON.stringify(portfolio));unsaved=false;q('v52-unsaved-notice')?.remove();}
+ function flyingResult(){try{return C.evaluatePractice(JSON.parse(localStorage.getItem(C.studyKeys.practice)||'{"answers":{}}'));}catch{return {passed:false,correct:0,total:30};}}
+ function status(text){const el=q('v52-save-status');if(el)el.textContent=text;}
+ function download(blob,name){const url=URL.createObjectURL(blob),a=document.createElement('a');a.href=url;a.download=name;a.click();setTimeout(()=>URL.revokeObjectURL(url),1500);}
+ function open(next='overview'){
+  panel=['overview','measurement','report'].includes(next)?next:'overview';load();render();
+  document.querySelectorAll('.view').forEach(v=>v.classList.toggle('active',v===root));state.view='outcomes';v4SyncNav('courses');
+  document.querySelectorAll('[data-v5-target]').forEach(b=>{b.classList.remove('active');b.setAttribute('aria-current','false');});
+  document.body.classList.remove('v4-index-open','v4-focused');v4Options.index=false;v4Options.focus=false;
+  document.getElementById('v4-mobile-menu')?.classList.remove('open');document.getElementById('v4-mobile-toggle')?.setAttribute('aria-expanded','false');
+  document.getElementById('top-current').textContent='学习成果';window.scrollTo({top:0,behavior:'instant'});
+ }
+ function render(){
+  root.innerHTML=`<button class="v5-tool-back" data-v4-nav="courses">← 返回课程</button><div class="v5-heading"><span class="v5-kicker">LEARNING PORTFOLIO · V5.2</span><h1>让学习留下可复核的成果</h1><p>课程完成、知识检验与实训作品分别记录，回到薄弱环节继续练习。</p></div><div class="v5-togglebar v5-tabs v52-tabs" role="group" aria-label="学习成果栏目">${[['overview','成果总览'],['measurement','测向误差实训'],['report','综合案例报告']].map(([id,label])=>`<button data-outcomes="${id}" class="${panel===id?'active':''}" aria-pressed="${panel===id}">${label}</button>`).join('')}</div>${unsaved?'<p id="v52-unsaved-notice" class="v5-alert">当前成果尚未写入浏览器。请重试保存，或先导出学习档案保留当前草稿。</p>':''}<div id="v52-content"></div><div class="v52-backup"><p>测向答案和全部案例报告包含在学习档案中。每个案例保留一份草稿；更换案例会切换到各自的草稿。户型图片仍需另存完整项目 JSON。</p><button class="v5-btn v5-btn-outline" data-export-study>导出全部学习档案 ↓</button><button class="v5-btn v5-btn-outline" data-v4-nav="resources">导入档案 / 查看备份说明 →</button></div>`;
+  if(loadError){q('v52-content').innerHTML=`<p class="v5-alert" role="alert">成果读取失败：${escape(loadError)}。原数据未覆盖，请在文献页导入之前的有效学习档案。</p>`;return;}
+  q('v52-content').innerHTML=panel==='overview'?overview():panel==='measurement'?measurement():reportEditor();
+  if(panel==='report')refreshReport();
+ }
+ function overview(){
+  const progress=C.stageProgress(saved,gradeData),measurement=C.evaluateMeasurement(portfolio.measurement),flying=flyingResult(),reports=Object.values(portfolio.reports),ready=reports.filter(r=>C.evaluateReport(r).ready).length;
+  const goals=['能记录北向基准、读数和误差，判断山位与支持边界。','能区分环境事实、来源和传统解释，在案例报告中留下观察记录。','能区分固定宫位、元运与坐向，说明计算输入的作用。','能独立填出三盘，复核顺逆与工具不支持的条件。','先明确文本版本、来龙输入与起排步骤，再比较不同解释。','形成有来源、过程、局限和下一步的综合报告。'];
+  return `<div class="v52-metrics"><div><strong>${progress.reduce((s,p)=>s+p.completed,0)} / 36</strong><span>课程完成标记</span></div><div><strong>${progress.reduce((s,p)=>s+p.checked,0)} / 36</strong><span>课内三题已通过</span></div><div><strong>${Number(measurement.passed)+Number(flying.passed)} / 2</strong><span>独立实训已通过</span></div><div><strong>${ready} / ${reports.length}</strong><span>报告已自检 / 已建草稿</span></div></div><p class="v5-muted">两项独立实训指测向误差与飞星三盘。报告自检属于学习者自评，不与机器检查合并为“精通率”。</p><div class="v52-stage-grid">${stages.map((stage,i)=>`<article class="v5-surface"><span class="v5-kicker">STAGE ${i+1}</span><h2>${stage.name}</h2><p>${goals[i]}</p><dl><div><dt>课程完成</dt><dd>${progress[i].completed} / 6</dd></div><div><dt>知识检验</dt><dd>${progress[i].checked} / 6</dd></div></dl><p>${i===0?`测向实训：${measurement.passed?'已通过':'待练习或复核'}`:i===3?`三盘实训：${flying.passed?'已通过':'待练习或复核'}`:i===5?`已自检报告：${ready}份（未经教师审核）`:'本阶段成果可写入案例报告，暂无独立自动考核。'}</p><div class="v5-actions"><button class="v5-btn v5-btn-outline" data-v4-lesson="${i*6}">进入本阶段课程</button>${i===0?'<button class="v5-btn" data-outcomes="measurement">测向实训 →</button>':i===3?'<button class="v5-btn" data-v52-flying>三盘练习 →</button>':'<button class="v5-btn" data-outcomes="report">写案例报告 →</button>'}</div></article>`).join('')}</div>`;
+ }
+ function measurement(){
+  const data=portfolio.measurement;
+  return `<div class="v52-two-cols"><section class="v5-surface"><span class="v5-kicker">TRANSFER TASK · 测向迁移练习</span><h2>山位稳定，就一定可以起盘吗？</h2><p>某模拟住宅以主立面为研究对象，同一测点、真北基准，三次朝向读数为 <strong>183.6°、183.8°、184.0°</strong>。</p><p>题设要求用算术平均数作为记录值，并按“记录值 ± 1.0°”保留判断区间。该±1.0°是教学给定的综合误差界限，不能因取平均而自行缩小。</p><p>比较两个边界：午山范围172.5°—187.5°；本站下卦仅支持距山位中心不超过4.5°。还未确认建筑起用年代。</p><p class="v5-muted">这是给定真北基准的模拟练习，无需另做磁偏角换算。真实测量仍须记录设备、测点、基准、校准与时间；跨0°的读数不能直接套用本题的普通平均。</p><button class="v5-btn v5-btn-outline" data-v4-lesson="5">回看第6课 · 真北与测向</button><button class="v5-btn v5-btn-outline" data-v4-lesson="17">回看第18课 · 输入与误差</button></section><section class="v5-surface"><h2>填写你的测向记录</h2><form id="v52-measure-form"><div class="v52-form-grid">${[['mean','平均朝向'],['low','误差区间下限'],['high','误差区间上限']].map(([id,label])=>`<label for="v52-${id}">${label}（°）<input id="v52-${id}" name="${id}" type="number" min="0" max="359.9" step="0.1" value="${data[id]}"></label>`).join('')}${[['facing','朝向山位'],['sitting','相对坐山']].map(([id,label])=>`<label for="v52-${id}">${label}<select id="v52-${id}" name="${id}"><option value="">请选择</option>${C.mountains.map(m=>`<option ${data[id]===m?'selected':''}>${m}</option>`).join('')}</select></label>`).join('')}</div><label for="v52-decision">当前应怎样处理下卦推演？</label><select id="v52-decision" name="decision">${[['','请选择'],['review','保留区间并复测，补齐时间输入后再判断'],['calculate','均值在支持范围内，直接自动起盘'],['switch','跨了4.5°阈值，所以一定改判为丁山']].map(([id,label])=>`<option value="${id}" ${data.decision===id?'selected':''}>${label}</option>`).join('')}</select><label for="v52-measure-reason">依据与待核实事项（至少20字）</label><textarea id="v52-measure-reason" name="reason" rows="5" maxlength="3000" placeholder="说明误差区间与两个边界的关系，以及还缺什么输入。">${escape(data.reason)}</textarea><label class="v51-review"><input id="v52-measure-reviewed" type="checkbox" ${data.reviewed?'checked':''}> 我已检查计算过程，区分题设与现场事实</label><button class="v5-btn" type="submit">检查并保存测向记录</button></form><p id="v52-save-status" role="status">${unsaved?'尚未写入浏览器，请先导出档案保留草稿。':'填写时自动保存到当前浏览器。'}</p><div id="v52-measure-result" aria-live="polite"></div></section></div>`;
+ }
+ function readMeasurement(){const data={};for(const field of ['mean','low','high']){const raw=q('v52-'+field).value;data[field]=raw===''?'':Number(raw);}for(const field of ['facing','sitting','decision'])data[field]=q('v52-'+field).value;data.reason=q('v52-measure-reason').value;data.reviewed=q('v52-measure-reviewed').checked;return C.cleanMeasurement(data);}
+ function checkMeasurement(){
+  try{persist({...portfolio,measurement:readMeasurement()});const result=C.evaluateMeasurement(portfolio.measurement);q('v52-measure-result').innerHTML=`<h3>确定答案：${result.correct} / ${result.total}</h3><p>${result.errors.length?'请复核：'+result.errors.map(escape).join('、'):'数值和边界判断均正确。区间仍在午山内，但上限超出本站下卦支持范围；起用时间也尚未确认。'}</p><p>${result.passed?'测向实训已通过，文字依据仍需人工复核。':'完成六项答案、至少20字依据及自检后，可以通过本次实训。'}</p>`;status('测向记录已保存。');}catch(error){status('未保存：'+error.message);}
+ }
+ function reportEditor(){
+  const id=portfolio.activeCase,data=portfolio.reports[id]||C.cleanReport(),c=cases.find(c=>c.id===id);
+  const hints={title:'例如：模拟住宅测向复核记录',sources:'逐条写出处、作者或机构、版本/日期/页码或链接，并注明支持哪项材料。',facts:'只记可观察或可查证的事实；本站模拟案例中的数字请明确标注为题设。',inputs:'研究对象与范围、北向基准、测点与时间、读数与误差、元运条件；未知项写待核实。',method:'按顺序记录采用的规则、对应版本、取值和中间计算。输入不足时说明在哪一步停止。',analysis:'分别说明事实、教学推演和传统解释，指出每个判断依赖哪些材料。',limits:'缺失资料、测量误差、版本差异及无法推出的结论。',next:'列出需要补的证据和下一次复核的具体方法。'};
+  return `<div class="v5-surface v52-report-top"><label for="v52-report-case">选择研习对象（各自保存一份草稿）</label><select id="v52-report-case"><option value="custom">自选对象 · 需自行提供资料</option>${cases.map(c=>`<option value="${c.id}" ${id===c.id?'selected':''}>${c.type==='real'?'文献案例':'模拟练习'} · ${escape(c.title)}</option>`).join('')}</select><p>${c?escape(c.summary):'自选对象没有预设资料；请注明观察范围和来源。'}</p><p class="v5-muted">${c?.type==='real'?'此为真实建筑文化案例；本站并未提供其完整实测坐向或起用输入，请勿套用模拟宅盘。':c?'此为教学模拟案例，给定条件不能写成真实现场测量成果。':'不要在公开分享的报告中包含住户身份或精确私人地址。'}</p>${c?`<button class="v5-btn v5-btn-outline" data-case="${c.id}">查看案例材料 →</button>`:''}<details><summary>查看一份“停止推演”的报告示范</summary><p>对象：本页测向练习的模拟住宅（不同于案例馆186°住宅）。来源：题设三次读数及±1.0°误差界限。记录：均值183.8°，区间182.8°—184.8°，坐子向午。方法：先判24山，再将整个区间与本站下卦阈值比较。解释：午山判定稳定，但区间上限超出184.5°，不能只用均值直接起盘。局限：起用时间未知、非真实测绘。下一步：复核测向条件，补齐起用资料，再决定是否适用下卦演示。</p><p>示范只展示组织方法，不会自动填入你的报告。</p></details></div><div class="v52-report-layout"><section class="v5-surface"><h2>写出材料、过程与判断</h2><p>允许先导出未完成稿。结构填写数只检查是否非空，不代表内容正确。</p><form id="v52-report-form">${C.reportFields.map(([field,label,max])=>`<label for="v52-report-${field}">${label}</label>${field==='title'?`<input id="v52-report-${field}" data-report-field="${field}" maxlength="${max}" value="${escape(data[field])}" placeholder="${hints[field]}">`:`<textarea id="v52-report-${field}" data-report-field="${field}" rows="4" maxlength="${max}" placeholder="${hints[field]}">${escape(data[field])}</textarea>`}`).join('')}</form></section><aside class="v5-surface"><h2>六项成果自评</h2><p>0＝待补充；1＝部分满足；2＝已按标准自查。修改正文后会清除自评，便于重新检查。</p>${C.reportRubric.map(([field,label,description])=>`<div class="v52-rubric-item"><label for="v52-review-${field}">${label}</label><p>${description}</p><select id="v52-review-${field}" data-report-review="${field}">${[[0,'待补充'],[1,'部分满足'],[2,'已按标准自查']].map(([score,text])=>`<option value="${score}" ${data.review[field]===score?'selected':''}>${score} · ${text}</option>`).join('')}</select></div>`).join('')}<div id="v52-report-result" aria-live="polite"></div><div class="v5-actions"><button class="v5-btn" id="v52-save-report">保存并检查结构</button><button class="v5-btn v5-btn-outline" id="v52-export-report">导出阅读稿 HTML</button></div><p id="v52-save-status" role="status">${unsaved?'尚未写入浏览器，请先导出档案保留草稿。':'填写时自动保存。导出的阅读稿可打印或另存为PDF。'}</p></aside></div>`;
+ }
+ function readReport(){const data={review:{}};root.querySelectorAll('[data-report-field]').forEach(el=>data[el.dataset.reportField]=el.value);root.querySelectorAll('[data-report-review]').forEach(el=>data.review[el.dataset.reportReview]=Number(el.value));return C.cleanReport(data);}
+ function saveReport(){const report=readReport();persist({...portfolio,reports:{...portfolio.reports,[portfolio.activeCase]:report}});return report;}
+ function refreshReport(){const data=readReport(),result=C.evaluateReport(data);q('v52-report-result').innerHTML=`<h3>结构填写：${result.filled} / ${result.total}</h3><p>学习者自评：${result.selfScore} / ${result.selfTotal}</p><p>${result.missing.length?'待填写：'+result.missing.map(escape).join('、'):result.ready?'结构齐备，六项已自查；尚未经过教师审核。':'结构齐备，请继续逐项自查。'}</p>`;}
+ root.addEventListener('submit',e=>{e.preventDefault();if(e.target.id==='v52-measure-form')checkMeasurement();});
+ root.addEventListener('input',e=>{
+  if(panel==='measurement'&&e.target.closest('#v52-measure-form')){
+   if(e.target.id!=='v52-measure-reviewed')q('v52-measure-reviewed').checked=false;
+   q('v52-measure-result').textContent='记录已修改，请重新检查。';
+   try{persist({...portfolio,measurement:readMeasurement()});status('测向草稿已保存。');}catch(error){status('草稿未保存：'+error.message);}return;
+  }
+  if(panel==='report'&&(e.target.matches('[data-report-field]')||e.target.matches('[data-report-review]'))){
+   if(e.target.matches('[data-report-field]'))root.querySelectorAll('[data-report-review]').forEach(el=>el.value='0');
+   try{saveReport();status('报告草稿已保存。');}catch(error){status('草稿未保存：'+error.message);}refreshReport();
+  }
+ });
+ root.addEventListener('change',e=>{if(e.target.id==='v52-report-case'){
+  let message='';try{persist({...portfolio,activeCase:e.target.value});}catch(error){message='切换尚未写入浏览器：'+error.message;}render();if(message)status(message);
+ }});
+ root.addEventListener('click',e=>{
+  if(e.target.closest('#v52-save-report')){try{saveReport();refreshReport();status('报告已保存；结构检查不等同于内容审核。');}catch(error){status('未保存：'+error.message);}}
+  if(e.target.closest('#v52-export-report')){try{
+   const report=readReport();try{saveReport();status('报告已保存并导出。');}catch{status('已导出阅读稿，但浏览器保存失败；请另导出学习档案保留可编辑稿。');}
+   const c=cases.find(c=>c.id===portfolio.activeCase),m=C.evaluateMeasurement(portfolio.measurement),f=flyingResult();
+   const text=C.reportDocument(report,{caseTitle:c?.title||'自选对象',caseType:c?.type==='real'?'真实建筑文献观察':c?'教学模拟':'学习者自选；来源自行说明',exportedAt:new Date().toLocaleString('zh-CN'),training:`测向练习：${m.correct}/${m.total}，${m.passed?'已通过':'待复核'}；飞星练习：${f.correct}/${f.total}，${f.passed?'已通过':'待复核'}`});
+   download(new Blob([text],{type:'text/html;charset=utf-8'}),'形理书院_案例研习报告.html');
+  }catch(error){status('导出失败：'+error.message);}}
+ });
+ document.addEventListener('click',e=>{const link=e.target.closest('[data-outcomes]');if(link){e.preventDefault();open(link.dataset.outcomes);return;}if(e.target.closest('[data-v52-flying]')){e.preventDefault();XingliV5.openV5('v5-flying');document.querySelector('#view-v5-flying').dispatchEvent(new CustomEvent('xingli-flying-mode',{detail:'practice'}));}},true);
+ window.addEventListener('xingli-study-restored',e=>{load(e.detail?.portfolioRestored===true);if(root.classList.contains('active'))render();});
+ window.addEventListener('beforeunload',e=>{if(unsaved){e.preventDefault();e.returnValue='';}});
+ window.XingliOutcomes={open,snapshot:()=>{if(!portfolio)load();if(loadError)throw Error(loadError);return C.cleanPortfolio(portfolio,caseIds);}};
+ if(location.hash.startsWith('#study/'))open(location.hash.split('/')[1]);
 })();
 </script>
 </body></html>

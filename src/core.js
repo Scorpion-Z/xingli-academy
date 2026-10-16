@@ -116,7 +116,7 @@ function containedImageBox(frameW,frameH,imageW,imageH){
 function regionPixels(s,w,h){return {left:w*s.x/100,top:h*s.y/100,width:w*s.w/100,height:h*s.h/100,cx:w*s.centerX/100,cy:h*s.centerY/100};}
 
 // Learning archives contain text records only; plan images have their own project export.
-const studyKeys={progress:'xingli_school_v1',mastery:'xingli_v2_checkpoint',visualNotes:'xingli-v32-visual-notes',labs:'xingli-v5-lab-records',practice:'xingli-v51-flying-practice'};
+const studyKeys={progress:'xingli_school_v1',mastery:'xingli_v2_checkpoint',visualNotes:'xingli-v32-visual-notes',labs:'xingli-v5-lab-records',practice:'xingli-v51-flying-practice',portfolio:'xingli-v52-portfolio'};
 function objectRecord(value,label){if(!value||typeof value!=='object'||Array.isArray(value))throw Error(label+'须为对象');return value;}
 function indexList(value,max,label){if(!Array.isArray(value)||value.some(n=>!Number.isInteger(n)||n<0||n>=max))throw Error(label+'格式无效');return [...new Set(value)];}
 function lessonNotes(value){objectRecord(value,'笔记');const result={};for(const [key,text] of Object.entries(value)){
@@ -136,8 +136,58 @@ function evaluatePractice(value){
  for(const [key,want,label] of [['hillDirection',String(expected.sDir.sign),'山盘顺逆'],['faceDirection',String(expected.fDir.sign),'向盘顺逆'],['boundary','stop','186°支持边界']]){if(data[key]===want)correct++;else errors.push(label);}
  return {correct,total:30,errors,passed:correct===30&&data.reason.trim().length>=20&&data.reviewed};
 }
+const studyMaxBytes=8*1024*1024;
+const reportFields=[
+ ['title','报告标题',160],['sources','资料来源与版本',3000],['facts','可核实事实',3000],['inputs','对象、测量与假设输入',3000],['method','规则与推演过程',3000],['analysis','分析与解释',3000],['limits','不确定性与限制',3000],['next','待补资料与下一步',3000]
+];
+const reportRubric=[
+ ['evidence','证据可追溯','资料标注作者、版本或链接；能指出它支持哪项事实。'],
+ ['inputs','输入有交代','研究对象、北向基准、时间和测量条件明确；未知值有标记。'],
+ ['method','过程可复算','写明采用规则及中间步骤，另一位学习者能够照着重做。'],
+ ['analysis','解释有分层','把观察事实、教学假设和传统解释分开，避免跳过依据。'],
+ ['limits','边界有保留','说明误差、缺失资料和工具未覆盖部分，必要时停止推演。'],
+ ['next','后续可执行','明确还需补充什么资料、怎样复核，而非只写笼统结论。']
+];
+function boundedText(value,max,label){if(value===undefined)return '';if(typeof value!=='string'||value.length>max)throw Error(label+'须为不超过'+max+'字的文字');return value;}
+function cleanMeasurement(value={}){
+ objectRecord(value,'测向练习');const result={};
+ for(const key of ['mean','low','high']){const n=value[key];if(n===undefined||n==='')result[key]='';else {if(typeof n!=='number'||!Number.isFinite(n)||n<0||n>=360)throw Error('测向答案须为0至小于360的数字');result[key]=n;}}
+ for(const key of ['facing','sitting']){const n=value[key]??'';if(n!==''&&!mountains.includes(n))throw Error('山位答案无效');result[key]=n;}
+ result.decision=value.decision??'';if(!['','review','calculate','switch'].includes(result.decision))throw Error('测向判断无效');
+ result.reason=boundedText(value.reason,3000,'测向说明');result.reviewed=value.reviewed===true;return result;
+}
+function evaluateMeasurement(value){
+ const data=cleanMeasurement(value),checks=[['mean',183.8,'平均朝向'],['low',182.8,'误差区间下限'],['high',184.8,'误差区间上限'],['facing','午','朝向山位'],['sitting','子','相对坐山'],['decision','review','下卦支持边界']];
+ const errors=checks.filter(([key,want])=>typeof want==='number'?typeof data[key]!=='number'||Math.abs(data[key]-want)>0.051:data[key]!==want).map(x=>x[2]);
+ return {correct:6-errors.length,total:6,errors,passed:!errors.length&&data.reason.trim().length>=20&&data.reviewed};
+}
+function cleanReport(value={}){
+ objectRecord(value,'案例报告');const result={};for(const [key,label,max] of reportFields)result[key]=boundedText(value[key],max,label);
+ result.review={};const ratings=value.review??{};objectRecord(ratings,'报告自评');
+ for(const [key] of reportRubric){const score=ratings[key]??0;if(!Number.isInteger(score)||score<0||score>2)throw Error('报告自评须为0、1或2');result.review[key]=score;}
+ return result;
+}
+function evaluateReport(value){
+ const data=cleanReport(value),missing=reportFields.filter(([key])=>!data[key].trim()).map(([,label])=>label),score=Object.values(data.review).reduce((sum,n)=>sum+n,0);
+ return {filled:reportFields.length-missing.length,total:reportFields.length,missing,selfScore:score,selfTotal:12,ready:missing.length===0&&score===12};
+}
+function cleanPortfolio(value={},caseIds=[]){
+ objectRecord(value,'学习成果');const reports=objectRecord(value.reports??{},'案例报告集'),next={measurement:cleanMeasurement(value.measurement??{}),reports:{}};
+ const allowed=new Set(['custom',...caseIds]);for(const [key,report] of Object.entries(reports)){if(!allowed.has(key))throw Error('报告关联了不支持的案例：'+key);next.reports[key]=cleanReport(report);}
+ next.activeCase=value.activeCase??'custom';if(!allowed.has(next.activeCase))throw Error('当前报告案例无效');return next;
+}
+function stageProgress(progress={},mastery={}){
+ const done=new Set(Array.isArray(progress.done)?progress.done.filter(n=>Number.isInteger(n)&&n>=0&&n<36):[]);
+ return Array.from({length:6},(_,stage)=>{let completed=0,checked=0;for(let i=stage*6;i<stage*6+6;i++){if(done.has(i))completed++;const answers=mastery['l'+i];if(Array.isArray(answers)&&[0,1,2].every(n=>answers.includes(n)))checked++;}return {completed,checked,total:6};});
+}
+function reportDocument(report,context){
+ const data=cleanReport(report),evaluation=evaluateReport(data),escape=escapeHtml;
+ const sections=reportFields.filter(([key])=>key!=='title').map(([key,label])=>`<section><h2>${label}</h2><p>${escape(data[key]||'尚未填写')}</p></section>`).join('');
+ return `<!doctype html><html lang="zh-CN"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>${escape(data.title||'案例研习报告')}</title><style>body{max-width:900px;margin:40px auto;padding:0 24px;font:17px/1.8 system-ui,sans-serif;color:#203e32}h1{line-height:1.4}h2{font-size:21px;border-bottom:1px solid #cbd8cf;padding-bottom:8px}p{white-space:pre-wrap;overflow-wrap:anywhere}.meta{color:#526f60;background:#f1f5f0;padding:18px}button{padding:10px 20px}section{break-inside:avoid}@media print{button{display:none}body{margin:0;font-size:12pt}section{break-inside:auto}}</style><body><button onclick="window.print()">打印 / 存为 PDF</button><h1>${escape(data.title||'案例研习报告')}</h1><p class="meta">形理书院 · 个人研习成果\n案例：${escape(context.caseTitle)}\n对象性质：${escape(context.caseType)}\n导出时间：${escape(context.exportedAt)}\n结构填写：${evaluation.filled}/${evaluation.total}；学习者自评：${evaluation.selfScore}/${evaluation.selfTotal}\n本报告未经过教师或专业审核。</p>${sections}<section><h2>自评记录</h2>${reportRubric.map(([key,label,description])=>`<p><b>${label}：${data.review[key]}/2</b> — ${escape(description)}</p>`).join('')}</section><p class="meta">个人实训记录（模拟算例，与本报告对象无对应关系）：\n${escape(context.training)}\n本文件是阅读稿；恢复编辑请使用网站导出的学习档案 JSON。户型图片需另存完整项目 JSON。</p></body></html>`;
+}
+
 function cleanStudyArchive(obj,caseIds=[]){
- objectRecord(obj,'档案');if(!['3.0','5.1'].includes(obj.version))throw Error('暂不支持此档案版本，请使用学习档案备份文件');
+ objectRecord(obj,'档案');if(!['3.0','5.1','5.2'].includes(obj.version))throw Error('暂不支持此档案版本，请使用学习档案备份文件');
  const p=objectRecord(obj.progress,'课程记录'),mastery=objectRecord(obj.mastery,'检验记录');
  const lastLesson=p.lastLesson??0,quizBest=p.quizBest??0;
  if(!Number.isInteger(lastLesson)||lastLesson<0||lastLesson>35||!Number.isInteger(quizBest)||quizBest<0||quizBest>12)throw Error('课程位置或测验成绩无效');
@@ -149,6 +199,7 @@ function cleanStudyArchive(obj,caseIds=[]){
   if(typeof value!=='string'||value.length>40||!Number.isFinite(Date.parse(value)))throw Error('实训时间格式无效');next.labs[key]=value;
  }}
  if(obj.practice!==undefined)next.practice=cleanPractice(obj.practice);
+ if(obj.portfolio!==undefined)next.portfolio=cleanPortfolio(obj.portfolio,caseIds);
  return next;
 }
 function writeStudyArchive(storage,data){
@@ -160,5 +211,5 @@ function writeStudyArchive(storage,data){
  }
 }
 
-return {annual,studyKeys,cleanStudyArchive,writeStudyArchive,cleanPractice,evaluatePractice,bearingValue,safeNumber,clamp,escapeHtml,mountains,sectors,trigrams,yuanNames,normalize,at,mountainSvg,flight,palaces,sectorIds,starGroups,yang,wrap9,fly,flySteps,starDirection,house,explanations,PROJECT_VERSION,projectDefaults,cleanProject,containedImageBox,regionPixels};
+return {studyMaxBytes,reportFields,reportRubric,cleanMeasurement,evaluateMeasurement,cleanReport,evaluateReport,cleanPortfolio,stageProgress,reportDocument,annual,studyKeys,cleanStudyArchive,writeStudyArchive,cleanPractice,evaluatePractice,bearingValue,safeNumber,clamp,escapeHtml,mountains,sectors,trigrams,yuanNames,normalize,at,mountainSvg,flight,palaces,sectorIds,starGroups,yang,wrap9,fly,flySteps,starDirection,house,explanations,PROJECT_VERSION,projectDefaults,cleanProject,containedImageBox,regionPixels};
 })();

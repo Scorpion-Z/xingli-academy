@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#f8f9f7">
   <meta name="description" content="形理书院：系统学习中国传统风水文化的交互课程，配备交互罗盘、九宫飞星、文献支持的真实建筑案例和实践训练。">
-  <title>形理书院 V5.1.0 · 交互式教学版</title>
+  <title>形理书院 V5.2.0 · 交互式教学版</title>
   <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
   <meta property="og:type" content="website">
   <meta property="og:title" content="形理书院 · Xingli Academy">
@@ -128,7 +128,7 @@ h1,h2,h3{letter-spacing:-.03em}.eyebrow,.small-label{font-family:-apple-system,B
 .v5-status{overflow-wrap:anywhere}
 @media(prefers-reduced-motion:reduce){.v5-view,.v5-surface{animation:none!important;transition:none!important}}
 
-/* V5.1.0 导航整合：首页不重复列出单个实验室 */
+/* V5.2.0 导航整合：首页不重复列出单个实验室 */
 .v4-navlinks .v5-tools-nav{font-size:14px!important;font-weight:650!important;color:#315d49!important}
 .v4-navlinks .v5-tools-nav.active{color:#1c5a41!important}
 .v5-view:has(.v5-tools-heading){min-height:65vh}
@@ -162,6 +162,27 @@ h1,h2,h3{letter-spacing:-.03em}.eyebrow,.small-label{font-family:-apple-system,B
 [data-flying-panel="practice"] select{max-width:100%}
 .v51-learning-tabs button:focus-visible,.v51-practice-table input:focus-visible{outline:3px solid #416e56;outline-offset:3px}
 @media(max-width:600px){.v51-practice-table th,.v51-practice-table td{padding:8px 3px}.v51-learning-tabs button{flex:1;min-width:90px}}
+</style>
+<style>
+.v52-tabs{margin-bottom:24px;flex-wrap:wrap}.v52-tabs button{min-height:44px}
+.v52-metrics{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin:22px 0}
+.v52-metrics>div{background:#eaf1e9;border:1px solid #d5e1d6;border-radius:18px;padding:24px}
+.v52-metrics strong{display:block;font-size:30px;color:#245d48}.v52-metrics span{display:block;margin-top:10px;color:#556f61}
+.v52-stage-grid,.v52-two-cols{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:22px}
+.v52-stage-grid h2{margin:12px 0;font-size:24px}.v52-stage-grid p{line-height:1.8}.v52-stage-grid dl>div{display:flex;justify-content:space-between;border-bottom:1px solid #e0e8df;padding:8px 0}.v52-stage-grid dd{margin:0;font-weight:700}
+.v52-outcomes label{display:block;margin:18px 0 7px;font-weight:650}.v52-outcomes label.v51-review{display:flex;font-weight:400}
+.v52-outcomes input:not([type=checkbox]),.v52-outcomes select,.v52-outcomes textarea{display:block;width:100%;max-width:100%;min-height:44px;padding:11px 12px;border:1px solid #b8cbbd;border-radius:9px;background:#fff;color:#294d3b;font:inherit}
+.v52-outcomes textarea{resize:vertical;line-height:1.7}.v52-outcomes :is(input,select,textarea,button):focus-visible{outline:3px solid #63937a;outline-offset:3px}
+.v52-form-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0 16px}
+.v52-two-cols h2{font-size:26px;line-height:1.5}.v52-two-cols p{line-height:1.85}
+.v52-report-top{margin-bottom:22px}.v52-report-top select{max-width:660px}.v52-report-top summary{cursor:pointer;padding:16px 0;color:#245d48;font-weight:650}
+.v52-report-layout{display:grid;grid-template-columns:minmax(0,1.6fr) minmax(0,1fr);gap:22px;align-items:start}
+.v52-rubric-item{border-bottom:1px solid #e0e8df;padding-bottom:15px}.v52-rubric-item p{font-size:14px;color:#627567;line-height:1.7}
+.v52-backup,.v52-course-task{padding:22px;margin:24px 0;background:#edf3eb;border-radius:14px;line-height:1.8}.v52-backup button{margin:5px 8px 0 0}
+.v52-outcomes .v5-actions{flex-wrap:wrap}.v52-outcomes .v5-surface{min-width:0}
+#v52-report-result,#v52-measure-result{padding:12px 0;line-height:1.8}
+@media(max-width:850px){.v52-metrics{grid-template-columns:repeat(2,1fr)}.v52-stage-grid,.v52-two-cols,.v52-report-layout{grid-template-columns:1fr}.v52-metrics strong{font-size:25px}}
+@media(max-width:480px){.v52-tabs button{flex:1;min-width:95px}.v52-metrics>div{padding:17px}.v52-form-grid{grid-template-columns:1fr}.v52-outcomes .v5-actions>*{max-width:100%}}
 </style>
 </head>
 <body>
@@ -204,4 +225,5 @@ h1,h2,h3{letter-spacing:-.03em}.eyebrow,.small-label{font-family:-apple-system,B
 <!-- script:core -->
 <!-- script:learning -->
 <!-- script:curriculum --><!-- script:tools -->
+<!-- script:outcomes -->
 </body></html>

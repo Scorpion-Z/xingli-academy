@@ -4,7 +4,7 @@ import path from 'node:path';
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 let html = await readFile(path.join(root, 'src/page.html'), 'utf8');
-for (const name of ['core', 'learning', 'curriculum', 'tools']) {
+for (const name of ['core', 'learning', 'curriculum', 'tools', 'outcomes']) {
   const code = await readFile(path.join(root, `src/${name}.js`), 'utf8');
   if (/<\/script\s*>/i.test(code)) throw new Error(`Unexpected closing script tag in ${name}`);
   const marker = `<!-- script:${name} -->`;
