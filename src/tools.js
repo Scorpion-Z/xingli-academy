@@ -1,4 +1,4 @@
-(function(){ 
+(function(){
 const {bearingValue,safeNumber,clamp,escapeHtml,mountains,sectors,trigrams,yuanNames,normalize,at,mountainSvg,flight,palaces,sectorIds,starGroups,yang,wrap9,fly,flySteps,starDirection,house,explanations,PROJECT_VERSION,projectDefaults,cleanProject,containedImageBox,regionPixels} = XingliCore;
 // IndexedDB stores both image Blob and metadata. Fallback to localStorage metadata if blocked.
 const DB='xingli-v5-learning';const STORE='projects';const KEY='active-plan';
